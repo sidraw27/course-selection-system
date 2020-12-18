@@ -1,0 +1,12 @@
+storage/app/*
+storage/framework/cache/*
+storage/framework/sessions/*
+storage/framework/views/*
+storage/logs/*
+
+vendor/
+docker/
+
+docker-compose.yml
+
+supervisord.*
