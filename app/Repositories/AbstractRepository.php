@@ -21,6 +21,11 @@ abstract class AbstractRepository
         $this->entity = $entity;
     }
 
+    public function findByShortId(string $shortId, array $columns = ['*']): ?Model
+    {
+        return $this->queryShortId($shortId)->first($columns);
+    }
+
     protected function generateShortId(int $len = 6): string
     {
         $atoms = array_merge(range('a', 'z'), range('A', 'Z'), range(0, 9));

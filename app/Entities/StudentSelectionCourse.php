@@ -10,4 +10,10 @@ class StudentSelectionCourse extends Model
 {
     use HasFactory;
     use SoftDeletes;
+
+    protected $fillable = [
+        'student_id',
+        'course_id',
+        'deleted_at',
+    ];
 }

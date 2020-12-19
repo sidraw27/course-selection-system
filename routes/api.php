@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\StudentSelectionCourseController;
 use App\Http\Controllers\TeacherController;
 use Illuminate\Support\Facades\Route;
 
@@ -23,6 +24,14 @@ Route::group(['prefix' => 'v1'], function () {
             'destroy'
         ]
     ]);
+    Route::group(['prefix' => 'students'], function () {
+        Route::apiResource('{students}/selection-courses', StudentSelectionCourseController::class, [
+            'only' => [
+                'store',
+                'destroy',
+            ]
+        ]);
+    });
     Route::apiResource('students', StudentController::class, [
         'only' => [
             'store',

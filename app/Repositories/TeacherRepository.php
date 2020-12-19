@@ -43,9 +43,4 @@ final class TeacherRepository extends AbstractRepository implements TeacherRepos
             return false;
         }
     }
-
-    public function findByShortId(string $shortId, array $columns = ['*']): ?Model
-    {
-        return $this->queryShortId($shortId)->first($columns);
-    }
 }

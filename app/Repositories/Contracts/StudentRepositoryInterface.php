@@ -9,4 +9,5 @@ interface StudentRepositoryInterface
     public function create(string $name): ?Model;
     public function update(string $shortId, string $name): bool;
     public function delete(string $shortId): bool;
+    public function findByShortId(string $shortId, array $columns = ['*']): ?Model;
 }
