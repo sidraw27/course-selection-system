@@ -16,6 +16,15 @@ final class CourseRepository extends AbstractRepository implements CourseReposit
         parent::__construct($entity);
     }
 
+    public function findDetailInfoCourse(string $shortId): ?Model
+    {
+        return $this->queryShortId($shortId)
+            ->with('teacher')
+            ->with('students')
+            ->with('assistant')
+            ->first();
+    }
+
     public function findWithStudents(string $shortId): ?Model
     {
         return $this->queryShortId($shortId)->with('students')->first();

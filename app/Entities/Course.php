@@ -4,6 +4,7 @@ namespace App\Entities;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -19,6 +20,11 @@ class Course extends Model
         'name',
     ];
 
+    public function teacher(): BelongsTo
+    {
+        return $this->belongsTo(Teacher::class);
+    }
+
     public function students(): HasManyThrough
     {
         return $this->hasManyThrough(
@@ -30,6 +36,10 @@ class Course extends Model
 
     public function assistant(): HasOneThrough
     {
-        return $this->hasOneThrough(Student::class, CourseAssistant::class);
+        return $this->hasOneThrough(
+            Student::class,
+            CourseAssistant::class,
+            'course_id', 'id', 'id', 'student_id'
+        );
     }
 }

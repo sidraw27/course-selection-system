@@ -51,6 +51,7 @@ Route::group(['prefix' => 'v1'], function () {
     });
     Route::apiResource('courses', CourseController::class, [
         'only' => [
+            'show',
             'store',
             'update',
             'destroy'

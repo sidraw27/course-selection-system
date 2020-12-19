@@ -22,6 +22,30 @@ final class CourseService
     }
 
     /**
+     * @param string $shortId
+     *
+     * @return array
+     * @throws CourseNotFoundException
+     */
+    public function getCourseInfo(string $shortId): array
+    {
+        $course = $this->repository->findDetailInfoCourse($shortId);
+
+        if (null === $course) {
+            throw new CourseNotFoundException();
+        }
+
+        return [
+            'info'      => $course->only(['short_id', 'name']),
+            'teacher'   => $course->getAttribute('teacher')->only(['short_id', 'name']),
+            'assistant' => $course->getAttribute('assistant')->only(['short_id', 'name']),
+            'students'  => $course->getAttribute('students')->map(function ($student) {
+                return $student->only(['short_id', 'name']);
+            })->all()
+        ];
+    }
+
+    /**
      * @param string $name
      * @param string|null $teacherShortId
      *
@@ -90,10 +114,7 @@ final class CourseService
         }
 
         return $course->getAttribute('students')->map(function ($student) {
-            return [
-                'short_id' => $student->getAttribute('short_id'),
-                'name' => $student->getAttribute('name'),
-            ];
+            return $student->only(['short_id', 'name']);
         })->all();
     }
 

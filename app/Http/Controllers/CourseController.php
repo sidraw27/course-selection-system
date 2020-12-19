@@ -21,6 +21,17 @@ class CourseController extends Controller
         $this->service = $courseService;
     }
 
+    public function show(string $shortId): JsonResponse
+    {
+        try {
+            $course = $this->service->getCourseInfo($shortId);
+        } catch (CourseNotFoundException $e) {
+            return $this->getResponse('not found', 404);
+        }
+
+        return $this->getResponse('ok', 200, $course);
+    }
+
     public function store(Request $request): JsonResponse
     {
         $validator = Validator::make($request->all(), [
