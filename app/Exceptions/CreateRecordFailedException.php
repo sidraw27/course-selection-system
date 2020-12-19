@@ -2,7 +2,9 @@
 
 namespace App\Exceptions;
 
-class CreateRecordFailedException extends \Exception
+use Exception;
+
+class CreateRecordFailedException extends Exception
 {
 
 }

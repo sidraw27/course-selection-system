@@ -10,4 +10,9 @@ class Teacher extends Model
 {
     use HasFactory;
     use SoftDeletes;
+
+    protected $fillable = [
+        'short_id',
+        'name',
+    ];
 }

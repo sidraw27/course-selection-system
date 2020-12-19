@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\TeacherController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,6 +15,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::group(['prefix' => 'v1'], function () {
+    Route::apiResource('teachers', TeacherController::class, [
+        'only' => [
+            'store',
+            'update',
+            'destroy'
+        ]
+    ]);
     Route::apiResource('students', StudentController::class, [
         'only' => [
             'store',
