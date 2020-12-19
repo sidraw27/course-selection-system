@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CourseAssistantController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\StudentSelectionCourseController;
@@ -39,6 +40,14 @@ Route::group(['prefix' => 'v1'], function () {
             'destroy'
         ]
     ]);
+    Route::group(['prefix' => 'courses'], function () {
+        Route::apiResource('{courses}/assistants', CourseAssistantController::class, [
+            'only' => [
+                'update',
+                'destroy',
+            ]
+        ]);
+    });
     Route::apiResource('courses', CourseController::class, [
         'only' => [
             'store',

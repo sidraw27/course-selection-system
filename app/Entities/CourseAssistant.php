@@ -10,4 +10,9 @@ class CourseAssistant extends Model
 {
     use HasFactory;
     use SoftDeletes;
+
+    protected $fillable = [
+        'course_id',
+        'student_id',
+    ];
 }

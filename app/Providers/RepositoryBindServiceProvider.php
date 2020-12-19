@@ -2,10 +2,12 @@
 
 namespace App\Providers;
 
+use App\Repositories\Contracts\CourseAssistantRepositoryInterface;
 use App\Repositories\Contracts\CourseRepositoryInterface;
 use App\Repositories\Contracts\StudentRepositoryInterface;
 use App\Repositories\Contracts\StudentSelectionCourseRepositoryInterface;
 use App\Repositories\Contracts\TeacherRepositoryInterface;
+use App\Repositories\CourseAssistantRepository;
 use App\Repositories\CourseRepository;
 use App\Repositories\StudentRepository;
 use App\Repositories\StudentSelectionCourseRepository;
@@ -22,6 +24,10 @@ class RepositoryBindServiceProvider extends ServiceProvider
         $this->app->bind(
             StudentSelectionCourseRepositoryInterface::class,
             StudentSelectionCourseRepository::class
+        );
+        $this->app->bind(
+            CourseAssistantRepositoryInterface::class,
+            CourseAssistantRepository::class
         );
     }
 }
