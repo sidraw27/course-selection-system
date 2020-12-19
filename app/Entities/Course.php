@@ -13,6 +13,12 @@ class Course extends Model
     use HasFactory;
     use SoftDeletes;
 
+    protected $fillable = [
+        'short_id',
+        'teacher_id',
+        'name',
+    ];
+
     public function students(): HasManyThrough
     {
         return $this->hasManyThrough(Student::class, StudentSelectionCourse::class);
