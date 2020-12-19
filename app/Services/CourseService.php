@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Exceptions\CourseNotFoundException;
 use App\Exceptions\CreateRecordFailedException;
 use App\Exceptions\TeacherNotFoundException;
 use App\Repositories\Contracts\CourseRepositoryInterface;
@@ -72,6 +73,28 @@ final class CourseService
     public function deleteCourse(string $shortId): bool
     {
         return $this->repository->delete($shortId);
+    }
+
+    /**
+     * @param string $courseShortId
+     *
+     * @return array
+     * @throws CourseNotFoundException
+     */
+    public function getSelectedStudent(string $courseShortId): array
+    {
+        $course = $this->repository->findWithStudents($courseShortId);
+
+        if (null === $course) {
+            throw new CourseNotFoundException();
+        }
+
+        return $course->getAttribute('students')->map(function ($student) {
+            return [
+                'short_id' => $student->getAttribute('short_id'),
+                'name' => $student->getAttribute('name'),
+            ];
+        })->all();
     }
 
     /**

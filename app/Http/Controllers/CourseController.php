@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\CourseNotFoundException;
 use App\Exceptions\CreateRecordFailedException;
 use App\Exceptions\TeacherNotFoundException;
 use App\Repositories\CourseRepository;
@@ -86,5 +87,16 @@ class CourseController extends Controller
         } else {
             return $this->getResponse('destroy failed', 400);
         }
+    }
+
+    public function students(string $shortId): JsonResponse
+    {
+        try {
+            $students = $this->service->getSelectedStudent($shortId);
+        } catch (CourseNotFoundException $e) {
+            return $this->getResponse('not found', 404);
+        }
+
+        return $this->getResponse('ok', 200, compact('students'));
     }
 }

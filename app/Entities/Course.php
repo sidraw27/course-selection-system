@@ -21,7 +21,11 @@ class Course extends Model
 
     public function students(): HasManyThrough
     {
-        return $this->hasManyThrough(Student::class, StudentSelectionCourse::class);
+        return $this->hasManyThrough(
+            Student::class,
+            StudentSelectionCourse::class,
+            'course_id', 'id', 'id', 'student_id'
+        );
     }
 
     public function assistant(): HasOneThrough

@@ -41,6 +41,7 @@ Route::group(['prefix' => 'v1'], function () {
         ]
     ]);
     Route::group(['prefix' => 'courses'], function () {
+        Route::get('{courses}/students', [CourseController::class, 'students']);
         Route::apiResource('{courses}/assistants', CourseAssistantController::class, [
             'only' => [
                 'update',
