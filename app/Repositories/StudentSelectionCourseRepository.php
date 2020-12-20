@@ -37,12 +37,12 @@ final class StudentSelectionCourseRepository extends AbstractRepository implemen
                     ->where('course_id', $courseId)
                     ->first();
 
-                if ($entity->trashed()) {
-                    $entity->setAttribute('deleted_at', null);
-                    $entity->save();
-                } else {
+                if ( ! $entity->trashed()) {
                     throw new DuplicatedException();
                 }
+
+                $entity->setAttribute('deleted_at', null);
+                $entity->save();
             }
             // Log($e->getMessage())
             return null;

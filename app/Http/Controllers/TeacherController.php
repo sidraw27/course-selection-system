@@ -50,20 +50,21 @@ class TeacherController extends Controller
             return $this->getResponse($validator->errors()->first(), 400);
         }
 
-        if ($this->service->updateTeacher($shortId, $request->get('name'))) {
-            return $this->getResponse('ok');
-        } else {
+        if ( ! $this->service->updateTeacher($shortId, $request->get('name'))) {
             return $this->getResponse('update failed', 400);
         }
+
+        return $this->getResponse('ok');
     }
 
     public function destroy(string $shortId): JsonResponse
     {
-        if ($this->service->deleteTeacher($shortId)) {
+        if ( ! $this->service->deleteTeacher($shortId)) {
             return $this->getResponse('ok');
-        } else {
             return $this->getResponse('destroy failed', 400);
         }
+
+        return $this->getResponse('ok');
     }
 
     private function validateFillableInfo(array $data, array $rule = [], array $message = []): ValidatorContract

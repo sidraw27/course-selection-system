@@ -53,11 +53,11 @@ class StudentSelectionCourseController extends Controller
         }
 
         try {
-            if ($this->service->deleteSelectionCourse($studentShortId, $courseShortId)) {
-                return $this->getResponse('ok');
-            } else {
+            if ( ! $this->service->deleteSelectionCourse($studentShortId, $courseShortId)) {
                 return $this->getResponse('destroy failed');
             }
+
+            return $this->getResponse('ok');
         } catch (StudentNotFoundException | CourseNotFoundException $e) {
             return $this->getResponse('target not found', 404);
         }

@@ -130,11 +130,12 @@ final class CourseService
 
         if (null !== $teacherShortId) {
             $teacher = $this->teacherRepository->findByShortId($teacherShortId);
+
             if (null === $teacher) {
                 throw new TeacherNotFoundException();
-            } else {
-                $teacherId = $teacher->getAttribute('id');
             }
+
+            $teacherId = $teacher->getAttribute('id');
         }
 
         return $teacherId;

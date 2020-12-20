@@ -81,11 +81,11 @@ class CourseController extends Controller
         }
 
         try {
-            if ($this->service->updateCourse($shortId, $courseName, $teacherShortId)) {
-                return $this->getResponse('ok');
-            } else {
+            if ( ! $this->service->updateCourse($shortId, $courseName, $teacherShortId)) {
                 return $this->getResponse('update failed', 400);
             }
+
+            return $this->getResponse('ok');
         } catch (TeacherNotFoundException $e) {
             return $this->getResponse($e->getMessage(), 404);
         }
@@ -93,11 +93,11 @@ class CourseController extends Controller
 
     public function destroy(string $shortId): JsonResponse
     {
-        if ($this->service->deleteCourse($shortId)) {
-            return $this->getResponse('ok');
-        } else {
+        if ( ! $this->service->deleteCourse($shortId)) {
             return $this->getResponse('destroy failed', 400);
         }
+
+        return $this->getResponse('ok');
     }
 
     public function students(string $shortId): JsonResponse
